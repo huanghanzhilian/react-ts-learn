@@ -97,6 +97,29 @@ const xiaoming: Partial<Person> = {}
 // ? 作为可先的键
 // T[P] 是值
 
+
+// extends 进行泛型约束
+// 作用是判断一个类型是否满足另一个类型的约束。
+
+interface IWithLength {
+  length: number
+}
+
+function echoWithArr<T extends IWithLength>(arg: T): T {
+  console.log(arg.length) // 将来传入的参数中，不一定有length。于是需要 extends 进行约束：传入的之中，必须有 length 属性
+  return arg;
+}
+
+const arrs = echoWithArr([1, 2, 3])
+const str = echoWithArr('fghj')
+const obj = echoWithArr({length: 1})
+
+// extends 条件类型关键字
+type NonType<T> = T extends null | undefined ? never : T // 假如泛型参数 T 为 null 或 undefined, 返回 never；否则返回 T
+// NonType<T> 变为条件类型：是什么类型，看传入的泛型 T 的类型。
+let demo1: NonType<number> // demo1 的类型是 number
+let demo2: NonType<null> // demo1 的类型是 never
+
 const Test: FunctionComponent<TestProps> = (props) => {
   return (
     <>
