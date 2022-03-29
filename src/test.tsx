@@ -1,5 +1,7 @@
 import { FunctionComponent } from "react";
-import myFetch from "./fetch";
+
+
+import myFetch from 'myFetch'
 
 myFetch.get('/api').then(res => {
   console.log(res)
